@@ -80,7 +80,7 @@ export default class App extends Vue {
 
 <style scoped lang="less">
 .div {
-  width: 716px;
+  width: 110px;
   height: 46px;
   color: @white;
   background: @blue;
