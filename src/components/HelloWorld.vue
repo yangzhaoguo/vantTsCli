@@ -1,59 +1,101 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest" target="_blank" rel="noopener">unit-jest</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <van-nav-bar
+      title="标题"
+      left-text="返回"
+      right-text="按钮"
+      left-arrow
+      @click-left="onClickLeft"
+      @click-right="onClickRight">
+    </van-nav-bar>
+    <van-button block @click="goAbout" type="default">默认按钮</van-button>
+    <van-button
+      block
+      loading-type="spinner"
+      :loading="isLoading"
+      loading-text="加载中..."
+      @click="primaryClick"
+      type="primary">
+      主要按钮
+    </van-button>
+    <van-button block type="info">
+      信息按钮
+    </van-button>
+    <van-button block :disabled="disabled" type="warning">警告按钮</van-button>
+    <van-button block plain type="primary">主要按钮</van-button>
+    <van-button block type="danger">危险按钮</van-button>
+    <div class="div cl">杨朝国</div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Provide, Vue } from "vue-property-decorator";
 
 @Component
-export default class HelloWorld extends Vue {
-  @Prop() private msg!: string;
+export default class App extends Vue {
+  @Provide() private name = "typescript";
+  @Provide() private disabled = false;
+  @Provide() private isLoading = false;
+
+  public onClickLeft() {
+    this.disabled = !this.disabled;
+  }
+
+  public primaryClick() {
+    this.isLoading = true;
+
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
+  }
+
+  public goAbout() {
+    this.$router.push({
+      path: "/about"
+    });
+  }
+
+  public onClickRight() {
+    const data = {
+      approval_order_flag: 0,
+      approval_status: "",
+      member_id: "067BE1779768950003D",
+      page_index: 1,
+      page_size: 3
+    };
+    this.$request(
+      "/security/v1/common/getApplyOrderList",
+      "POST",
+      data,
+      (ret: any) => {
+        console.log(ret);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
+.div {
+  width: 716px;
+  height: 46px;
+  color: @white;
+  background: @blue;
+  font-size: 12px;
+  text-align: center;
+  line-height: 46px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+.div1 {
+  width: 9rem;
+  height: 46px;
+  color: @white;
+  background: @blue;
+  font-size: 12px;
+  text-align: center;
+  line-height: 46px;
 }
 </style>

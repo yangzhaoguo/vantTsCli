@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+    touch-action: pan-x;
+}
+
+html {
+}
+
+html, body {
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+/*定位上下左右居中*/
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*定位上下居中*/
+.ct {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*定位上下居中*/
+.cl {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bg-wight {
+    background-color: #ffffff;
+}
+
+.bg-grey {
+    background-color: #f8f8f8;
+}
+
+/*路由动画*/
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+    will-change: transform;
+    transition: all 400ms;
+    position: absolute;
+}
+
+.slide-right-enter {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}
+
+.slide-right-leave-active {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+.slide-left-enter {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+.slide-left-leave-active {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}
