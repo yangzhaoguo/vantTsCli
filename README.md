@@ -29,6 +29,10 @@ npm run lint
 ```
 npm run test:unit
 ```
-
+1.安装vant
+2.eslint配置
+3.rem适配
+4.http请求
+5.ios的300ms
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
